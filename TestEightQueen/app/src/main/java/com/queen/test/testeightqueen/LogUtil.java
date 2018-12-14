@@ -21,44 +21,20 @@ public class LogUtil {
 
     private final static String DEFAULT_TAG = "ZYA";
 
-    @SuppressLint("HandlerLeak")
-    private static Handler handler = new Handler(Looper.myLooper()) {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case 0:
-                    Bundle bundle = msg.getData();
-                    String ssss = bundle.getString("msg");
-                    print(null, null, ssss);
-                    break;
-            }
-            Looper.loop();
-        }
-    };
 
-    public static  void print(final String msg) {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                Message message = new Message();
-                Bundle bundle = new Bundle();
-                bundle.putString("msg", msg);
-                message.setData(bundle);
-                handler.sendMessage(message);
-            }
-        });
+    public static void print(final String msg) {
+        print(null, null, msg);
     }
 
-    public static  void print(LevelEnum level, String msg) {
+    public static void print(LevelEnum level, String msg) {
         print(level, null, msg);
     }
 
-    public static  void print(String tag, String msg) {
+    public static void print(String tag, String msg) {
         print(null, tag, msg);
     }
 
-    public static  void print(LevelEnum level, String tag, String msg) {
+    public static void print(LevelEnum level, String tag, String msg) {
         if (!isPrintLog) {
             return;
         }
